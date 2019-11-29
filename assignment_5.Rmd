@@ -38,3 +38,31 @@ pgs_clean <- initial_data %>%
 ```
 
 
+## Results {.tabset .tabset-fade}
+
+### Results A
+
+Salamander count in Clear Cut and Old Growth forest
+```{r}
+
+# Filter by section and year
+pgs_count <- pgs_clean %>% 
+  count(section, year)
+
+# Graph it
+ggplot(pgs_count, aes(x = year,
+                      y = n)) +
+  geom_col(aes(color = section,
+               fill = section)) +
+  scale_x_continuous(limits = c(1993, 2018)) %>% 
+  facet_wrap(~section) 
+
+
+  
+
+
+
+
+```
+
+
