@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = FALSE,
                       warning = FALSE)
 ```
 
-NOTE: We are not capitalizing "old growth" and "clear cut" throughout the document, unless using the abbreviation (OG) & (CC)
+NOTE: We are not capitalizing "old growth" and "clear cut" throughout the document, unless using the abbreviation (OG) &
 ```{r}
 # Attach necessary packages
 
@@ -113,5 +113,27 @@ ggplot(pgs_count, aes(x = year,
        y = "Salamander Count")
 
  
+```
+
+```{r}
+
+# A different visualization for salamander count
+ggplot(pgs_count, aes(x = year,
+                      y = n)) +
+  geom_point(aes(color = section),
+             show.legend = FALSE) +
+  scale_x_discrete(limits = c("'93", "'94", "'95", "'96", "'97", "'98", "'99", "'00", "'01", "'02", "'03", "'04", "'05", "'06", "'07", "'08", "'09", "'10", "'11", "'12", "'13", "'14", "'15", "'16", "'17"),
+  breaks = c("'93", "'95", "'97", "'99", "'01", "'03", "'05", "'07", "'09", "'11", "'13", "'15", "'17")) +
+  scale_y_continuous(limits = c(0, 400), expand = c(0,0)) +
+  geom_segment(aes(x = year,
+               y = 0,
+               xend = year,
+               yend = n,
+               color = section),
+               show.legend = FALSE) +
+  facet_wrap(~section) +
+  labs(x = "Year",
+       y = "Salamander Count")
+
 ```
 
