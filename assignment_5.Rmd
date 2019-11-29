@@ -1,0 +1,40 @@
+---
+title: "ESM 206, Assignment 5"
+author: "Andrew Salvador & Benson Truong"
+date: "11/29/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,
+                      message = FALSE,
+                      warning = FALSE)
+```
+
+
+```{r}
+# Attach necessary packages
+
+library(tidyverse)
+library(janitor)
+library(effsize)
+library(kableExtra)
+
+```
+
+```{r}
+# Read in data
+
+initial_data <- read_csv("mack_creek_vertebrates.csv")
+
+# Clean up data and filter for only Pacific Giant Salamanders (species code "DITE") 
+# pgs = pacific giant salamander
+
+pgs_clean <- initial_data %>% 
+  filter(SPECIES == "DITE") %>% 
+  clean_names() 
+  
+
+```
+
+
