@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = FALSE,
                       warning = FALSE)
 ```
 
-
+NOTE: We are not capitalizing "old growth" and "clear cut" throughout the document, unless using the abbreviation (OG) & (CC)
 ```{r}
 # Attach necessary packages
 
@@ -42,38 +42,76 @@ pgs_clean <- initial_data %>%
 
 ### Results A
 
-Salamander count in Clear Cut and Old Growth forest
+Salamander count in clear cut (CC) and old growth (OG) sections of Mack Creek from 1993 to 2017. Trends are fairly similar in both sections. 
 ```{r}
 
 # Filter by section and year
 pgs_count <- pgs_clean %>% 
-  count(section, year)
+  count(section, year) %>% 
+  mutate(year = as.character(year))
 
-# Graph it
+# Rename the years using abbreviations 
+pgs_count$year <- gsub("1993", "'93", pgs_count$year)
+pgs_count$year <- gsub("1994", "'94", pgs_count$year)
+pgs_count$year <- gsub("1995", "'95", pgs_count$year)
+pgs_count$year <- gsub("1996", "'96", pgs_count$year)
+pgs_count$year <- gsub("1997", "'97", pgs_count$year)
+pgs_count$year <- gsub("1998", "'98", pgs_count$year)
+pgs_count$year <- gsub("1999", "'99", pgs_count$year)
+pgs_count$year <- gsub("2000", "'00", pgs_count$year)
+pgs_count$year <- gsub("2001", "'01", pgs_count$year)
+pgs_count$year <- gsub("2002", "'02", pgs_count$year)
+pgs_count$year <- gsub("2003", "'03", pgs_count$year)
+pgs_count$year <- gsub("2004", "'04", pgs_count$year)
+pgs_count$year <- gsub("2005", "'05", pgs_count$year)
+pgs_count$year <- gsub("2006", "'06", pgs_count$year)
+pgs_count$year <- gsub("2007", "'07", pgs_count$year)
+pgs_count$year <- gsub("2008", "'08", pgs_count$year)
+pgs_count$year <- gsub("2009", "'09", pgs_count$year)
+pgs_count$year <- gsub("2010", "'10", pgs_count$year)
+pgs_count$year <- gsub("2011", "'11", pgs_count$year)
+pgs_count$year <- gsub("2012", "'12", pgs_count$year)
+pgs_count$year <- gsub("2013", "'13", pgs_count$year)
+pgs_count$year <- gsub("2014", "'14", pgs_count$year)
+pgs_count$year <- gsub("2015", "'15", pgs_count$year)
+pgs_count$year <- gsub("2016", "'16", pgs_count$year)
+pgs_count$year <- gsub("2017", "'17", pgs_count$year)
+pgs_count$year <- gsub("2018", "'18", pgs_count$year)
+
+
+
+# Graph it, setting tick marks every two years so the axis labels don't overlap
 ggplot(pgs_count, aes(x = year,
                       y = n)) +
   geom_col(aes(color = section,
-               fill = section)) +
-  scale_x_continuous(limits = c(1993, 2018)) %>% 
-  facet_wrap(~section) 
+               fill = section,
+               alpha = .8),
+               show.legend = FALSE) +
+  scale_x_discrete(limits = c("'93", "'94", "'95", "'96", "'97", "'98", "'99", "'00", "'01", "'02", "'03", "'04", "'05", "'06", "'07", "'08", "'09", "'10", "'11", "'12", "'13", "'14", "'15", "'16", "'17"),
+                   breaks = c("'93", "'95", "'97", "'99", "'01", "'03", "'05", "'07", "'09", "'11", "'13", "'15", "'17")) +
+  scale_y_continuous(limits = c(0, 400), expand = c(0,0)) +
+  facet_wrap(~section) +
+  labs(x = "Year",
+       y = "Salamander Count")
 
 
   
 
 
+```
+***Figure 1.*** *Sample salamander counts from years 1993 to 2017 for clear cut (CC) and old growth (OG) sections of Mack Creek. Clear Cut section shown in red while Old Growth section shown in blue. Data: Aquatic Vertebrate Population Study in Mack Creek, Andrews Experimental Forest, 1987 to present*
 
+```{r}
+# A different way to show compare count on the same graph could be a line graph so that the two counts overlap. Maybe easier to visualize differences?
+# Just messing around trying to make a line graph (failing miserably)
 
+ggplot(pgs_count, aes(x = year,
+                      y = n)) +
+  geom_line(aes(color = section)) +
+  scale_x_discrete(limits = c("'93", "'94", "'95", "'96", "'97", "'98", "'99", "'00", "'01", "'02", "'03", "'04", "'05", "'06", "'07", "'08", "'09", "'10", "'11", "'12", "'13", "'14", "'15", "'16", "'17"))
+  labs(x = "Year",
+       y = "Salamander Count")
+
+ 
 ```
 
-
-
-whatsupppppyoooooo
-
-
-
-
-hai
-hello
-contributing
-cyfkucujyc
-kuyf
