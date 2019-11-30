@@ -198,3 +198,49 @@ ggplot(pgs_count, aes(x = year,
 
 
 ### Results B
+```{r}
+# Filtered 2017 data and counted observations for only pool, cascade, and side channel
+pgs_2017 <- pgs_clean %>% 
+  filter(year == "2017",
+         unittype %in% c("C", "SC", "P")) %>% 
+  count(section, unittype)
+
+# Table with counts
+pgs_2017_table <- pgs_2017 %>% 
+  pivot_wider(names_from = section, values_from = n) %>% 
+  rename("Channel Classification" = unittype, "Clear Cut" = CC, "Old Growth" = OG)
+
+# Table with counts and Proportioins
+pgs_2017_table_prop <- pgs_2017_table %>%   
+  janitor::adorn_percentages(denominator = "row") %>% 
+  adorn_pct_formatting(digits = 1) %>% 
+  adorn_ns(position = "front")
+
+# Nice table
+kable(pgs_2017_table_prop) %>% 
+  kable_styling()
+
+
+```
+
+### Results C
+```{r}
+# Removed Channel Classification to make a contingency table for chi square testing
+chi_counts <- pgs_2017_table %>% 
+  select(-"Channel Classification")
+
+chi_counts
+
+# chi square test
+chisq.test(chi_counts) 
+
+# Retain H0
+# H0 = THere is no significant effect of forest condition on where the channel salamanders are found.
+```
+
+### Results D
+```{r}
+# 
+```
+
+
