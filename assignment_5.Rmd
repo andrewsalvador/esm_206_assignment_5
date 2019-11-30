@@ -337,7 +337,7 @@ ggplot() +
                 alpha = 0.6,
                 pch = 1,
                 color = "gray50") +
-  scale_x_discrete(labels = c( "Cascade", "Side-Channel", "Pool")) +
+  scale_x_discrete(labels = c( "Cascade", "Pool", "Side-Channel")) +
   geom_point(data = pgs_summary,
              aes(x = unittype,
                  y = mean_weight),
@@ -409,4 +409,18 @@ TukeyHSD(pgs_aov)
 
 # p adj shows the hypothesis test. Only the p value for side channel compared to pool is < 0.05 so those are the two that are significantly different. 
 ```
-One-way ANOVA with post-hoc Tukey's HSD shows a significant difference in mean weight between side-channel and pool salamanders (p < 0.05). 
+One-way ANOVA with post-hoc Tukey's HSD shows a significant difference in mean weight between side-channel and pool salamanders (p < 0.05). Pool and cascade salamanders, and side-channel and cascade salamanders were not significantly different (p > 0.05)
+
+
+Things I wasn't sure about:
+
+1.
+Results E the First part: instructions say "indicate values for the mean, and standard deviation, standard error *or* a 95% confidence interval". 
+- We have the mean, and standard deviation...I'm not sure we have standard error or a 95% confidence interval. 
+-Do we need the SE or the 95% confidence interval? The way she worded it is weird.
+
+2. 
+For Third part of Results E. 
+- Maybe has to do with the fact that the histogram and qq plot do *not* really look super normal?
+
+
