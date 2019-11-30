@@ -277,5 +277,11 @@ og_cc_ttest
 ```
 
 ### Results E
+```{r}
+# Compare weights of PGS in pools, cascades and side-channels of Mack Creek in 2017
+
+
+```
+
 
 
