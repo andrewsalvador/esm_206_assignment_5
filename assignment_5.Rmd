@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = FALSE,
                       warning = FALSE)
 ```
 
-NOTE: We are not capitalizing "old growth" and "clear cut" throughout the document, unless using the abbreviation (OG) &
+NOTE: We are not capitalizing "old growth" and "clear cut" throughout the document, unless using the abbreviation (OG) & (CC)
 ```{r}
 # Attach necessary packages
 
