@@ -241,8 +241,17 @@ og_cc_ttest
 ### Results E
 ```{r}
 # Compare weights of PGS in pools, cascades and side-channels of Mack Creek in 2017
+pgs_summary <- pgs_clean %>% 
+  filter(year == "2017",
+         unittype %in% c("P", "C", "SC"))
 
+ggplot(data = pgs_summary, aes(x = weight))+
+  geom_histogram(aes(fill=unittype))+
+  facet_wrap(~unittype)
 
+ggplot(data = pgs_summary, aes(x = unittype, y = weight))+
+  geom_violin(aes(color=unittype))+
+  facet_wrap(~unittype)
 ```
 
 
