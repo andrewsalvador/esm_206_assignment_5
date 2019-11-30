@@ -157,7 +157,7 @@ pgs_class <- pgs_clean %>%
 
 pgs_class_table <- pgs_class %>% 
   pivot_wider(names_from = unittype,
-              values_from = n)
+              values_from = n) 
 
 # use adorn funciton to show percentage and actual values
 pgs_class_prop <- pgs_class_table %>% 
@@ -246,46 +246,14 @@ There is no significant effect of section on a salamander's location (cascade, s
 
 
 
-### Results B Benson
-```{r}
-# Filtered 2017 data and counted observations for only pool, cascade, and side channel
-pgs_2017 <- pgs_clean %>% 
-  filter(year == "2017",
-         unittype %in% c("C", "SC", "P")) %>% 
-  count(section, unittype)
-
-# Table with counts
-pgs_2017_table <- pgs_2017 %>% 
-  pivot_wider(names_from = section, values_from = n) %>% 
-  rename("Channel Classification" = unittype, "Clear Cut" = CC, "Old Growth" = OG)
-
-# Table with counts and Proportioins
-pgs_2017_table_prop <- pgs_2017_table %>%   
-  janitor::adorn_percentages(denominator = "row") %>% 
-  adorn_pct_formatting(digits = 1) %>% 
-  adorn_ns(position = "front")
-
-# Nice table
-kable(pgs_2017_table_prop) %>% 
-  kable_styling()
 
 
-```
 
-### Results C Benson
-```{r}
-# Removed Channel Classification to make a contingency table for chi square testing
-chi_counts <- pgs_2017_table %>% 
-  select(-"Channel Classification")
 
-chi_counts
 
-# chi square test
-chisq.test(chi_counts) 
 
-# Retain H0
-# H0 = THere is no significant effect of forest condition on where the channel salamanders are found.
-```
+
+
 
 ### Results D
 ```{r}
