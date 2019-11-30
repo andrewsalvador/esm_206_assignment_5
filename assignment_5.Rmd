@@ -196,7 +196,7 @@ channelclass_chi <- chisq.test(contingency_table_c)
 channelclass_chi
 ```
 
-Section (clear cut or old growth) does not have a sigfnificant effect on a salamander location within the channel (cascade, side-channel, pool) ($\chi$^2^(`r channelclass_chi$parameter`)) = `r channelclass_chi$statistic`) (Table 1). For salamander observations in the clear cut section n = 368, for observations in the old growth section n = 320. 
+Section (clear cut or old growth) does not have a significant effect on a salamander location within the channel (cascade, side-channel, pool) ($\chi$^2^(`r channelclass_chi$parameter`)) = `r channelclass_chi$statistic`) (Table 1). For salamander observations in the clear cut section n = 368, for observations in the old growth section n = 320. 
 
 
 
@@ -225,11 +225,24 @@ pgs_og <- pgs_clean %>%
   filter(year == "2017",
          section == "OG") %>% 
   pull(weight)
+
 # For Clear Cut
 pgs_cc <- pgs_clean %>% 
   filter(year == "2017",
          section == "CC") %>% 
   pull(weight)
+
+
+# Just making some vectors that show the mean of clear cut and og weights in 2017
+cc_weight_2017 <- pgs_clean %>% 
+  filter(year == "2017", section == "CC") 
+ 
+mean_cc_weight_2017 <- mean(cc_weight_2017$weight, na.rm = TRUE)
+
+og_weight_2017 <- pgs_clean %>% 
+  filter(year == "2017", section == "OG")
+
+mean_og_weight_2017 <- mean(og_weight_2017$weight, na.rm = TRUE)
 
 og_cc_ttest <- t.test(pgs_og, pgs_cc)
 og_cc_ttest
@@ -237,6 +250,15 @@ og_cc_ttest
 # P-value of 0.09599, retain null hypothesis
 # There is no significant difference between in mean weights for Pacific giant salamanders observed in the two forest sections in 2017. 
 ```
+Mean salamander weight in clear cut and old growth sections did not differ significantly in 2017 (t(`r round(og_cc_ttest$parameter, 2)`) = `r round(og_cc_ttest$statistic, 2)`, *p* > 0.05). Mean salamander weight in the clear cut section was 18% greater than in the old growth section, with an actual difference of 1.19 grams. For salamanders observed in the clear cut section mean = 7.78g, n = 368, while for salamanders observed in the old growth section, mean = 6.58g, n = 320. 
+
+
+
+
+
+
+
+
 
 ### Results E
 ```{r}
