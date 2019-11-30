@@ -175,6 +175,8 @@ kable(pgs_class_prop) %>%
 ```
 
 
+
+
 ### Results C
 
 ```{r}
@@ -191,7 +193,7 @@ So running using a chi squared test for independence tells us that since p > 0.0
 Need to inline reference this.
 
 
-
+There is no significant effect of section on a salamander's location (cascade, side-channel, pool) ($\chi$^2^(`r channelclass_chi$parameter`)) = `r channelclass_chi$statistic`)
 
 
 
