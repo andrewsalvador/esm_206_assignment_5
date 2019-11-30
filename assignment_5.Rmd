@@ -20,9 +20,10 @@ library(janitor)
 library(effsize)
 library(kableExtra)
 library(ggpubr)
+library(ggbeeswarm)
 library(broom)
 library(devtools)
-
+library(car)
 ```
 
 ```{r}
@@ -261,11 +262,36 @@ Mean salamander weight in clear cut and old growth sections did not differ signi
 
 
 ### Results E
+
 ```{r}
 # Compare weights of PGS in pools, cascades and side-channels of Mack Creek in 2017
 pgs_2017_graph <- pgs_clean %>% 
   filter(year == "2017",
          unittype %in% c("P", "C", "SC"))
+
+# Visually explore salamander weights to check for normality
+
+# First a histogram
+
+ggplot(pgs_2017_graph, aes(x = weight)) +
+  geom_histogram(aes(color = unittype,
+                     fill = unittype)) +
+  facet_wrap(~unittype)
+
+# Now a quantile-quantile plot
+
+ggplot(pgs_2017_graph, aes(sample = weight)) +
+  geom_qq() +
+  facet_wrap(~unittype)
+
+# All sample sizes > 30 so that is good for parametric test except....
+# Both the histogram and the qq plot do not look really that normal....maybe that has to do with the third part of results 3? 
+
+
+```
+
+
+```{r}
 
 # Summary statistic table to make error bars for graph
 pgs_summary <- pgs_2017_graph %>% 
@@ -278,37 +304,109 @@ pgs_summary <- pgs_2017_graph %>%
     var_weight = var(weight, na.rm = TRUE)
   )
 
+# Check the variance (who knows why)
+leveneTest(weight ~ unittype, data = pgs_2017_graph)
+
+#Ho: there is no significant variance of weight across the three different unitttypes (cascade, pool, side-channel)
+# P value is .09 so cannot reject null. 
+
+
+```
+
+```{r}
+
+# Graph weights across unittypes 
 # Idk which graph looks the best. maybe jitter or histogram?
+
+# Histogram
 ggplot(data = pgs_2017_graph, aes(x = weight))+
   geom_histogram(aes(fill=unittype), na.rm = TRUE)+
   facet_wrap(~unittype)
 
+# Violin
 ggplot(data = pgs_2017_graph, aes(x = unittype, y = weight))+
   geom_violin(aes(color=unittype), na.rm = TRUE)+
   facet_wrap(~unittype)
 
-ggplot(data = pgs_2017_graph, aes(x = unittype, y = weight))+
-  geom_jitter(aes(color=unittype), na.rm = TRUE,
-              width = .2,
-              alpha = .4)+
-  scale_x_discrete(labels = c("Cascades", "Pool", "Side Channel"))+
-  geom_point(data = pgs_summary, aes(x = unittype, y = mean_weight),
-             color = "black",
-             size = 3)+
-  geom_errorbar(data = pgs_summary, #error when trying to add error bars
-                  aes(x = unittype,
+# Jitter
+ggplot() +
+  geom_jitter(data = pgs_2017_graph, 
+                aes(x = unittype,
+                    y = weight),
+                size = 3, 
+                alpha = 0.6,
+                pch = 1,
+                color = "gray50") +
+  scale_x_discrete(labels = c( "Cascade", "Side-Channel", "Pool")) +
+  geom_point(data = pgs_summary,
+             aes(x = unittype,
+                 y = mean_weight),
+             color = "red") + 
+  geom_errorbar(data = pgs_summary,
+                aes(x = unittype,
                     ymin = mean_weight - sd_weight,
                     ymax = mean_weight + sd_weight),
-                color = "black",
-                width = .1)
+                width = 0.1) +
+  theme_light() +
+  labs(x = "Unit Type",
+       y = "Weight (g)")
+
+               
+# Beeswarm
+ggplot() +
+  geom_beeswarm(data = pgs_2017_graph, 
+                aes(x = unittype,
+                    y = weight),
+                size = 3, 
+                alpha = 0.6,
+                pch = 16,
+                color = "gray60") +#  Now i'm going to change the labels on the x axis tick marks
+  scale_x_discrete(labels = c( "Cascade", "Pool", "Side-Channel")) +# now i'm going to indicate the mean
+  geom_point(data = pgs_summary, 
+             aes(x = unittype,
+                 y = mean_weight),
+             color = "red") + # Now plotting data spread (errorbar), 1 standard deviation up and down from mean (standard error and 95% coonfidence interval are also very common)
+  geom_errorbar(data = pgs_summary,
+                aes(x = unittype,
+                    ymin = mean_weight - sd_weight,
+                    ymax = mean_weight + sd_weight),
+                width = 0.1) +
+  theme_light() +
+  labs(x = "Unit Type", 
+       y = "Weight (g)")
+  
+
+```
+**Figure 2.** *Salamander weight (g) for Cascade (n = 448), Side-Channel (n = 164), and Pool (n = 76) salamanders in Mack Creek, Oregon. Means indicated by red dots; error bars indicate $\pm$ 1 standard deviation. Data: Aquatic Vertebrate Population Study in Mack Creek, Andrews Experimental Forest, 1987 to present.*
+
+```{r}
+
+# Counting unit types shown for reproducibility 
+
+unittype_count_2017 <- pgs_clean %>% 
+  filter(year == "2017") %>% 
+  count(unittype)
+unittype_count_2017
+  
+
+```
+
+#### ANOVA Test
+```{r}
 
 # ANOVA Test
 pgs_aov <- aov(weight~unittype, data = pgs_2017_graph)
 summary(pgs_aov)
 
-# What do these numbers mean lol
+# There is a significant difference in mean weights between cascade, side-channel, and pool salamanders in Mack Creek (F(2, 684) = 4.216, p < .05).
 
 ```
+#### Tukey's test
+```{r}
+# They are not all the same weight, so which ones are different?
 
+TukeyHSD(pgs_aov)
 
-
+# p adj shows the hypothesis test. Only the p value for side channel compared to pool is < 0.05 so those are the two that are significantly different. 
+```
+One-way ANOVA with post-hoc Tukey's HSD shows a significant difference in mean weight between side-channel and pool salamanders (p < 0.05). 
