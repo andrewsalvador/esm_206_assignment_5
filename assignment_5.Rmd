@@ -197,5 +197,4 @@ ggplot(pgs_count, aes(x = year,
 
 
 
-### Results A
-
+### Results B
