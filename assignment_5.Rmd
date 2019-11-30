@@ -102,7 +102,7 @@ ggplot(pgs_count, aes(x = year,
 
 
 ```
-***Figure 1.*** *Sample salamander counts from years 1993 to 2017 for clear cut (CC) and old growth (OG) sections of Mack Creek. Clear Cut section shown in red while Old Growth section shown in blue. Data: Aquatic Vertebrate Population Study in Mack Creek, Andrews Experimental Forest, 1987 to present*
+***Figure 1.*** *Sample salamander counts from years 1993 to 2017 for clear cut (CC) and old growth (OG) sections of Mack Creek. Clear cut section shown in red while old growth section shown in blue. Data: Aquatic Vertebrate Population Study in Mack Creek, Andrews Experimental Forest, 1987 to present.*
 
 ```{r}
 # A different way to show compare count on the same graph could be a line graph so that the two counts overlap. Maybe easier to visualize differences?
@@ -145,6 +145,7 @@ ggplot(pgs_count, aes(x = year,
 
 ### Results B
 
+***Table 1.*** *Counts and proportions of salamanders observed in different channel classifications (cascades, pool, side-channel) within two different sections (clear cut & old growth) in Mack Creek in 2017. Table excludes salamanders observed in isolated pools (IP) disconnected from the channel. Data: Aquatic Vertebrate Population Study in Mack Creek, Andrews Experimental Forest, 1987 to present.*
 ```{r}
 # Count and proportions of salamanders in different channel classifications (pool (P) cascade (C), side-channel (SC)). Exclude Isolated Pools (IP)
 
@@ -157,7 +158,12 @@ pgs_class <- pgs_clean %>%
 
 pgs_class_table <- pgs_class %>% 
   pivot_wider(names_from = unittype,
-              values_from = n) 
+              values_from = n) %>% 
+  rename("Cascades" = C, "Pool" = P, "Side-Channel" = SC, "Section" = section)
+
+# Rename CC and OG 
+pgs_class_table$Section <- gsub("CC", "Clear Cut", pgs_class_table$Section)
+pgs_class_table$Section <- gsub("OG", "Old Growth", pgs_class_table$Section)
 
 # use adorn funciton to show percentage and actual values
 pgs_class_prop <- pgs_class_table %>% 
@@ -170,7 +176,7 @@ pgs_class_prop <- pgs_class_table %>%
 kable(pgs_class_prop) %>% 
   kable_styling()
 
-# Can we rename the column headers somehow, to say Cascades, Pool, and Side-Channel? 
+
 
 ```
 
@@ -183,58 +189,14 @@ kable(pgs_class_prop) %>%
 # Now do a chi square test to see if section has any affect on channel classification
 # We only want to use the counts so we change the section column into the rownames
 contingency_table_c <- pgs_class_table %>% 
-  column_to_rownames('section')
+  column_to_rownames('Section')
 
 # Now run the chi-square test 
 channelclass_chi <- chisq.test(contingency_table_c)
 channelclass_chi
 ```
-So running using a chi squared test for independence tells us that since p > 0.05 that section (old growth or clear cut), has no significant impact on salamander location (cascade, side-channel, pool)
-Need to inline reference this.
 
-
-There is no significant effect of section on a salamander's location (cascade, side-channel, pool) ($\chi$^2^(`r channelclass_chi$parameter`)) = `r channelclass_chi$statistic`)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Section (clear cut or old growth) does not have a sigfnificant effect on a salamander location within the channel (cascade, side-channel, pool) ($\chi$^2^(`r channelclass_chi$parameter`)) = `r channelclass_chi$statistic`) (Table 1). For salamander observations in the clear cut section n = 368, for observations in the old growth section n = 320. 
 
 
 
