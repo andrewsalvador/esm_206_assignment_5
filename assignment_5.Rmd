@@ -316,7 +316,7 @@ leveneTest(weight ~ unittype, data = pgs_2017_graph)
 ```{r}
 
 # Graph weights across unittypes 
-# Idk which graph looks the best. maybe jitter or histogram?
+# Idk which graph looks the best. maybe jitter or histogram? 
 
 # Histogram
 ggplot(data = pgs_2017_graph, aes(x = weight))+
