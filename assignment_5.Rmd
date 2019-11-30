@@ -263,17 +263,51 @@ Mean salamander weight in clear cut and old growth sections did not differ signi
 ### Results E
 ```{r}
 # Compare weights of PGS in pools, cascades and side-channels of Mack Creek in 2017
-pgs_summary <- pgs_clean %>% 
+pgs_2017_graph <- pgs_clean %>% 
   filter(year == "2017",
          unittype %in% c("P", "C", "SC"))
 
-ggplot(data = pgs_summary, aes(x = weight))+
-  geom_histogram(aes(fill=unittype))+
+# Summary statistic table to make error bars for graph
+pgs_summary <- pgs_2017_graph %>% 
+  group_by(unittype) %>% 
+  summarize(
+    mean_weight = mean(weight, na.rm = TRUE),
+    sd_weight = sd(weight, na.rm = TRUE),
+    sample_size = n(),
+    se_weight = sd(weight, na.rm = TRUE)/sqrt(n()),
+    var_weight = var(weight, na.rm = TRUE)
+  )
+
+# Idk which graph looks the best. maybe jitter or histogram?
+ggplot(data = pgs_2017_graph, aes(x = weight))+
+  geom_histogram(aes(fill=unittype), na.rm = TRUE)+
   facet_wrap(~unittype)
 
-ggplot(data = pgs_summary, aes(x = unittype, y = weight))+
-  geom_violin(aes(color=unittype))+
+ggplot(data = pgs_2017_graph, aes(x = unittype, y = weight))+
+  geom_violin(aes(color=unittype), na.rm = TRUE)+
   facet_wrap(~unittype)
+
+ggplot(data = pgs_2017_graph, aes(x = unittype, y = weight))+
+  geom_jitter(aes(color=unittype), na.rm = TRUE,
+              width = .2,
+              alpha = .4)+
+  scale_x_discrete(labels = c("Cascades", "Pool", "Side Channel"))+
+  geom_point(data = pgs_summary, aes(x = unittype, y = mean_weight),
+             color = "black",
+             size = 3)+
+  geom_errorbar(data = pgs_summary, #error when trying to add error bars
+                  aes(x = unittype,
+                    ymin = mean_weight - sd_weight,
+                    ymax = mean_weight + sd_weight),
+                color = "black",
+                width = .1)
+
+# ANOVA Test
+pgs_aov <- aov(weight~unittype, data = pgs_2017_graph)
+summary(pgs_aov)
+
+# What do these numbers mean lol
+
 ```
 
 
