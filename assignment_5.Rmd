@@ -257,7 +257,25 @@ There is no significant effect of section on a salamander's location (cascade, s
 
 ### Results D
 ```{r}
-# 
+# Testing the mean weights for PGS in 2017 for OG and CC sections
+# For Old Growth
+pgs_og <- pgs_clean %>% 
+  filter(year == "2017",
+         section == "OG") %>% 
+  pull(weight)
+# For Clear Cut
+pgs_cc <- pgs_clean %>% 
+  filter(year == "2017",
+         section == "CC") %>% 
+  pull(weight)
+
+og_cc_ttest <- t.test(pgs_og, pgs_cc)
+og_cc_ttest
+
+# P-value of 0.09599, retain null hypothesis
+# There is no significant difference between in mean weights for Pacific giant salamanders observed in the two forest sections in 2017. 
 ```
+
+### Results E
 
 
