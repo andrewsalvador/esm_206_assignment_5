@@ -417,3 +417,23 @@ Things I wasn't sure about:
 6. For results E: I think the beeswarm plot represents the data the best but let me know what you think. We also probably need to hide the exploration visualizations checking for normality (qq and histogram) in the final report? I think?
 
 7. For results A I could go with either the bar graph or lollipop but would probably pick the bar graph. Either one is fine.
+
+
+Benson Response:
+ 1. Yeah not sure, we can ask her about this but I think adding the mean and SD in the graph is good enough. If anything, we can add the SE values in the figure captions.
+ 
+ 4. It looks good, just need to italicize the article name
+ 
+ 5. Yeah lets go with present tense
+ 
+ 6. I like the jitter plot, the beeswarm looks like a sad christmas tree LOL. I think either is fine. Yeah, we should hide the qq and histogram in final report.
+ 
+ 7. Yeah I like the bar graph better.
+ 
+
+
+
+
+
+
+
