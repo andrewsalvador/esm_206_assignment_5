@@ -188,8 +188,8 @@ contingency_table_c <- pgs_class_table %>%
 channelclass_chi <- chisq.test(contingency_table_c)
 
 ```
-#### Impact of forest condition on Pacific giant salamander location in 2017
-Forest condition (clear cut or old growth) does not have a significant effect on salamander location within the channel (cascade, side-channel, pool) (($\chi$^2^(`r channelclass_chi$parameter`)) = `r channelclass_chi$statistic`), *p* > 0.05). For salamander observations in the clear cut section n = 368, for observations in the old growth section n = 320. The greatest proportion of salamanders observed was in the cascades (67.12% clear cut, 62.81% old growth), while the smallest proportion of salamanders observed was in the pools (8.42% clear cut, 14.06% old growth). Actual counts for clear cut areas was 247 in cascades, 31 in pools, and 90 in side-channels, and for old growth forest, 201 in cascades, 45 in pools, and 74 in side-channels (Table 1).
+#### Forest condition impact on Pacific giant salamander location in 2017
+Forest condition (clear cut or old growth) did not have a significant effect on salamander location within the channel (cascade, side-channel, pool) (($\chi$^2^(`r channelclass_chi$parameter`)) = `r channelclass_chi$statistic`), *p* > 0.05). For salamander observations in the clear cut section n = 368, for observations in the old growth section n = 320. The greatest proportion of salamanders observed was in the cascades (67.12% clear cut, 62.81% old growth), while the smallest proportion of salamanders observed was in the pools (8.42% clear cut, 14.06% old growth). Actual counts for clear cut areas was 247 in cascades, 31 in pools, and 90 in side-channels, and for old growth forest, 201 in cascades, 45 in pools, and 74 in side-channels (Table 1).
 
 
 
@@ -392,16 +392,25 @@ A post-hoc Tukey's HSD shows a significant difference in mean weight between sid
 
 *Should we keep what I wrote about standard deviation or do you think we should just not talk about it? Also is what I wrote true lol*
 
+## Summary
+
+## References 
+Gregory S. V. 2016. Aquatic Vertebrate Population Study in Mack Creek, Andrews Experimental Forest, 1987 to present. Environmental Data Initiative. https://doi.org/10.6073/pasta/5de64af9c11579266ef20da2ff32f702. Dataset accessed 11/30/2019.
+
+
+
 Things I wasn't sure about:
 
-1.
-Results E the First part: instructions say "indicate values for the mean, and standard deviation, standard error *or* a 95% confidence interval". 
+1. Results E the First part: instructions say "indicate values for the mean, and standard deviation, standard error *or* a 95% confidence interval". 
 - We have the mean, and standard deviation...I'm not sure we have standard error or a 95% confidence interval. 
 -Do we need the SE or the 95% confidence interval? The way she worded it is weird.
 
-2. 
-For Third part of Results E. 
+2. For Third part of Results E. 
 - Maybe has to do with the fact that the histogram and qq plot do *not* really look normal?
 
-3.
-- For the beeswarm plot: there are a couple outliers for pool side channel that have a weight value of  like 85 and 88 so I made the y-scale to 100...
+3. For the beeswarm plot: there are a couple outliers for pool side channel that have a weight value of  like 85 and 88 so I made the y-scale to 100...
+
+4. Is the reference formatting correctly? I just copied what was in the assignment. Instructions state formatting matters
+
+5. I think (haven't read through whole thing yet) the report might be partially in present tense (does have an effect) and partially in past (did have an effect). Should probably pick one and stiock with it.
+
