@@ -416,4 +416,4 @@ Things I wasn't sure about:
 
 6. For results E: I think the beeswarm plot represents the data the best but let me know what you think. We also probably need to hide the exploration visualizations checking for normality (qq and histogram) in the final report? I think?
 
-7. For results A I could go with either the histogram or lollipop but would probably pick the histogram. Either one is fine.
+7. For results A I could go with either the bar graph or lollipop but would probably pick the bar graph. Either one is fine.
