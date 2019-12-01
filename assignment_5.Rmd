@@ -414,3 +414,6 @@ Things I wasn't sure about:
 
 5. I think (haven't read through whole thing yet) the report might be partially in present tense (does have an effect) and partially in past (did have an effect). Should probably pick one and stiock with it.
 
+6. For results E: I think the beeswarm plot represents the data the best but let me know what you think. We also probably need to hide the exploration visualizations checking for normality (qq and histogram) in the final report? I think?
+
+7. For results A I could go with either the histogram or lollipop but would probably pick the histogram. Either one is fine.
