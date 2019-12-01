@@ -12,6 +12,9 @@ knitr::opts_chunk$set(echo = FALSE,
 ```
 
 NOTE: We are not capitalizing "old growth" and "clear cut" throughout the document, unless using the abbreviation (OG) & (CC)
+
+
+
 ```{r}
 # Attach necessary packages
 
@@ -41,12 +44,16 @@ pgs_clean <- initial_data %>%
 
 ```
 
+## Introduction
+
+## Data & Methods
 
 ## Results {.tabset .tabset-fade}
 
 ### Results A
 
-Salamander count in clear cut (CC) and old growth (OG) sections of Mack Creek from 1993 to 2017. Trends are fairly similar in both sections. 
+#### Pacific giant salamander abundance
+Salamander count in clear cut (CC) and old growth (OG) sections of Mack Creek from 1993 to 2017. Trends are fairly similar in both sections, with salamander abundance increasing sharply in 2002, decreasing rapidly around the year 2012, and then increasing again beginning in 2015. For all but two years from 1993 to 2014 salamander count in the old growth section was greater than in the clear cut section, with the two exceptions being 1994 and 2012, where salamander count in the clear cut section slightly exceeded salamander observations in the old growth section. Salamander count in the clear cut section was greater than in the old growth section for all three years from 2015 to 2017. 
 ```{r}
 
 # Filter by section and year
@@ -89,6 +96,7 @@ ggplot(pgs_count, aes(x = year,
                       y = n)) +
   geom_col(aes(color = section,
                fill = section,
+               width = .7,
                alpha = .8),
                show.legend = FALSE) +
   scale_x_discrete(limits = c("'93", "'94", "'95", "'96", "'97", "'98", "'99", "'00", "'01", "'02", "'03", "'04", "'05", "'06", "'07", "'08", "'09", "'10", "'11", "'12", "'13", "'14", "'15", "'16", "'17"),
@@ -96,28 +104,13 @@ ggplot(pgs_count, aes(x = year,
   scale_y_continuous(limits = c(0, 400), expand = c(0,0)) +
   facet_wrap(~section) +
   labs(x = "Year",
-       y = "Salamander Count")
-
-
-  
+       y = "Salamander Count") 
 
 
 ```
 ***Figure 1.*** *Sample salamander counts from years 1993 to 2017 for clear cut (CC) and old growth (OG) sections of Mack Creek. Clear cut section shown in red while old growth section shown in blue. Data: Aquatic Vertebrate Population Study in Mack Creek, Andrews Experimental Forest, 1987 to present.*
 
-```{r}
-# A different way to show compare count on the same graph could be a line graph so that the two counts overlap. Maybe easier to visualize differences?
-# Just messing around trying to make a line graph (failing miserably)
 
-ggplot(pgs_count, aes(x = year,
-                      y = n)) +
-  geom_line(aes(color = section)) +
-  scale_x_discrete(limits = c("'93", "'94", "'95", "'96", "'97", "'98", "'99", "'00", "'01", "'02", "'03", "'04", "'05", "'06", "'07", "'08", "'09", "'10", "'11", "'12", "'13", "'14", "'15", "'16", "'17"))
-  labs(x = "Year",
-       y = "Salamander Count")
-
- 
-```
 
 ```{r}
 
@@ -178,7 +171,6 @@ kable(pgs_class_prop) %>%
   kable_styling()
 
 
-
 ```
 
 
@@ -194,25 +186,10 @@ contingency_table_c <- pgs_class_table %>%
 
 # Now run the chi-square test 
 channelclass_chi <- chisq.test(contingency_table_c)
-channelclass_chi
+
 ```
-
-Section (clear cut or old growth) does not have a significant effect on a salamander location within the channel (cascade, side-channel, pool) ($\chi$^2^(`r channelclass_chi$parameter`)) = `r channelclass_chi$statistic`) (Table 1). For salamander observations in the clear cut section n = 368, for observations in the old growth section n = 320. 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#### Impact of forest condition on Pacific giant salamander location in 2017
+Forest condition (clear cut or old growth) does not have a significant effect on salamander location within the channel (cascade, side-channel, pool) (($\chi$^2^(`r channelclass_chi$parameter`)) = `r channelclass_chi$statistic`), *p* > 0.05). For salamander observations in the clear cut section n = 368, for observations in the old growth section n = 320. The greatest proportion of salamanders observed was in the cascades (67.12% clear cut, 62.81% old growth), while the smallest proportion of salamanders observed was in the pools (8.42% clear cut, 14.06% old growth). Actual counts for clear cut areas was 247 in cascades, 31 in pools, and 90 in side-channels, and for old growth forest, 201 in cascades, 45 in pools, and 74 in side-channels (Table 1).
 
 
 
@@ -246,12 +223,12 @@ og_weight_2017 <- pgs_clean %>%
 mean_og_weight_2017 <- mean(og_weight_2017$weight, na.rm = TRUE)
 
 og_cc_ttest <- t.test(pgs_og, pgs_cc)
-og_cc_ttest
 
 # P-value of 0.09599, retain null hypothesis
 # There is no significant difference between in mean weights for Pacific giant salamanders observed in the two forest sections in 2017. 
 ```
-Mean salamander weight in clear cut and old growth sections did not differ significantly in 2017 (t(`r round(og_cc_ttest$parameter, 2)`) = `r round(og_cc_ttest$statistic, 2)`, *p* > 0.05). Mean salamander weight in the clear cut section was 18% greater than in the old growth section, with an actual difference of 1.19 grams. For salamanders observed in the clear cut section mean = 7.78g, n = 368, while for salamanders observed in the old growth section, mean = 6.58g, n = 320. 
+#### Comparing Pacific giant salamander weight in 2017
+Mean salamander weight in clear cut and old growth sections did not differ significantly in 2017 (t(`r round(og_cc_ttest$parameter, 2)`) = `r round(og_cc_ttest$statistic, 2)`, *p* > 0.05). Mean salamander weight in the clear cut section was 18.11% greater than in the old growth section, with an actual difference of 1.19 grams. For salamanders observed in the clear cut section mean = 7.78g, n = 368, while for salamanders observed in the old growth section, mean = 6.58g, n = 320. 
 
 
 
@@ -293,6 +270,20 @@ ggplot(pgs_2017_graph, aes(sample = weight)) +
 
 ```{r}
 
+# Check the variance 
+levene_test <- leveneTest(weight ~ unittype, data = pgs_2017_graph)
+
+#Ho: there is no significant variance of weight across the three different unitttypes (cascade, pool, side-channel)
+# P value is .09 so cannot reject null. 
+# We can thus assume homogeneity across groups and perform a one-way ANOVA (assumes equal variance across groups)
+
+```
+
+```{r}
+
+# Graph weights across unittypes 
+# Idk which graph looks the best. maybe jitter or histogram? 
+
 # Summary statistic table to make error bars for graph
 pgs_summary <- pgs_2017_graph %>% 
   group_by(unittype) %>% 
@@ -304,19 +295,6 @@ pgs_summary <- pgs_2017_graph %>%
     var_weight = var(weight, na.rm = TRUE)
   )
 
-# Check the variance (who knows why)
-leveneTest(weight ~ unittype, data = pgs_2017_graph)
-
-#Ho: there is no significant variance of weight across the three different unitttypes (cascade, pool, side-channel)
-# P value is .09 so cannot reject null. 
-
-
-```
-
-```{r}
-
-# Graph weights across unittypes 
-# Idk which graph looks the best. maybe jitter or histogram? 
 
 # Histogram
 ggplot(data = pgs_2017_graph, aes(x = weight))+
@@ -362,6 +340,7 @@ ggplot() +
                 pch = 16,
                 color = "gray60") +#  Now i'm going to change the labels on the x axis tick marks
   scale_x_discrete(labels = c( "Cascade", "Pool", "Side-Channel")) +# now i'm going to indicate the mean
+  scale_y_continuous(limits = c(-5,100), expand = c(0,0)) +
   geom_point(data = pgs_summary, 
              aes(x = unittype,
                  y = mean_weight),
@@ -386,31 +365,32 @@ ggplot() +
 unittype_count_2017 <- pgs_clean %>% 
   filter(year == "2017") %>% 
   count(unittype)
-unittype_count_2017
   
 
 ```
 
-#### ANOVA Test
+#### One-way ANOVA and Tukey's test
 ```{r}
 
 # ANOVA Test
 pgs_aov <- aov(weight~unittype, data = pgs_2017_graph)
-summary(pgs_aov)
+pgs_aov_summary <- summary(pgs_aov)
 
-# There is a significant difference in mean weights between cascade, side-channel, and pool salamanders in Mack Creek (F(2, 684) = 4.216, p < .05).
+# There is a significant difference in mean weights between cascade, side-channel, and pool salamanders in Mack Creek (F(2, 684) = 4.216, p < .05). IS THERE A WAY TO INLINE REFERENCE THIS?? I just hard coded it below...couldn't find anything in the lab to inline reference.
 
 ```
-#### Tukey's test
+One-way ANOVA shows that there is a significant difference in mean weights between cascade, side-channel, and pool salamanders in Mack Creek (F(2, 684) = 4.216, *p* < 0.05). 
 ```{r}
+
 # They are not all the same weight, so which ones are different?
 
-TukeyHSD(pgs_aov)
+tukeys_test <- TukeyHSD(pgs_aov)
 
 # p adj shows the hypothesis test. Only the p value for side channel compared to pool is < 0.05 so those are the two that are significantly different. 
 ```
-One-way ANOVA with post-hoc Tukey's HSD shows a significant difference in mean weight between side-channel and pool salamanders (p < 0.05). Pool and cascade salamanders, and side-channel and cascade salamanders were not significantly different (p > 0.05)
+A post-hoc Tukey's HSD shows a significant difference in mean weight between side-channel and pool salamanders (p < 0.05). Mean weight of salamanders found in pools was 64% greater than that of side-channel salamanders, with an actual difference of 3.61g, where for side-channel salamanders, mean = 5.68g, n = 164, and for pool salamanders, mean = 9.29g, n = 76 (Figure 2). Pool and cascade salamanders, and side-channel and cascade salamanders did not differ significantly in mean weight (p > 0.05). For cascade salamanders, mean = 7.52g, n = 448. Mean weight of pool salamanders was 23% greater than cascade salamanders, while mean weight of cascade salamanders was 32% greater than side channel salamanders. Standard deviations for all groups are fairly high (cascade SD = 9.03, pool SD = 13.62, side-channel SD = 8.27), but can be accounted for due to several outliers in each groups, influencing the data spread (Figure 2).
 
+*Should we keep what I wrote about standard deviation or do you think we should just not talk about it? Also is what I wrote true lol*
 
 Things I wasn't sure about:
 
@@ -421,6 +401,7 @@ Results E the First part: instructions say "indicate values for the mean, and st
 
 2. 
 For Third part of Results E. 
-- Maybe has to do with the fact that the histogram and qq plot do *not* really look super normal?
+- Maybe has to do with the fact that the histogram and qq plot do *not* really look normal?
 
-
+3.
+- For the beeswarm plot: there are a couple outliers for pool side channel that have a weight value of  like 85 and 88 so I made the y-scale to 100...
