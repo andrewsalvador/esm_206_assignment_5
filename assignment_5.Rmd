@@ -46,8 +46,18 @@ pgs_clean <- initial_data %>%
 
 ## Introduction
 
+
+
+
+
+
 ## Data & Methods
 
+
+
+
+
+ 
 ## Results {.tabset .tabset-fade}
 
 ### Results A
