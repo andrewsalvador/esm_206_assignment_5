@@ -121,32 +121,6 @@ ggplot(pgs_count, aes(x = year,
 ***Figure 1.*** *Sample salamander counts from years 1993 to 2017 for clear cut (CC) and old growth (OG) sections of Mack Creek. Clear cut section shown in red while old growth section shown in blue. Data: Aquatic Vertebrate Population Study in Mack Creek, Andrews Experimental Forest, 1987 to present.*
 
 
-
-```{r}
-
-# A different visualization for salamander count
-ggplot(pgs_count, aes(x = year,
-                      y = n)) +
-  geom_point(aes(color = section),
-             size = 3,
-             show.legend = FALSE) +
-  scale_x_discrete(limits = c("'93", "'94", "'95", "'96", "'97", "'98", "'99", "'00", "'01", "'02", "'03", "'04", "'05", "'06", "'07", "'08", "'09", "'10", "'11", "'12", "'13", "'14", "'15", "'16", "'17"),
-  breaks = c("'93", "'95", "'97", "'99", "'01", "'03", "'05", "'07", "'09", "'11", "'13", "'15", "'17")) +
-  scale_y_continuous(limits = c(0, 400), expand = c(0,0)) +
-  geom_segment(aes(x = year,
-               y = 0,
-               xend = year,
-               yend = n,
-               color = section),
-               show.legend = FALSE) +
-  facet_wrap(~section) +
-  labs(x = "Year",
-       y = "Salamander Count")
-
-```
-
-
-
 ### Results B
 
 ***Table 1.*** *Counts and proportions of salamanders observed in different channel classifications (cascades, pool, side-channel) within two different sections (clear cut & old growth) in Mack Creek in 2017. Table excludes salamanders observed in isolated pools (IP) disconnected from the channel. Data: Aquatic Vertebrate Population Study in Mack Creek, Andrews Experimental Forest, 1987 to present.*
@@ -250,7 +224,7 @@ Mean salamander weight in clear cut and old growth sections did not differ signi
 
 ### Results E
 
-```{r}
+```{r, include = FALSE} 
 # Compare weights of PGS in pools, cascades and side-channels of Mack Creek in 2017
 pgs_2017_graph <- pgs_clean %>% 
   filter(year == "2017",
@@ -289,7 +263,7 @@ levene_test <- leveneTest(weight ~ unittype, data = pgs_2017_graph)
 
 ```
 
-```{r}
+```{r, include = FALSE}
 
 # Graph weights across unittypes 
 # Idk which graph looks the best. maybe jitter or histogram? 
@@ -339,13 +313,15 @@ ggplot() +
   labs(x = "Unit Type",
        y = "Weight (g)")
 
-               
+```               
+
+```{r}
 # Beeswarm
 ggplot() +
   geom_beeswarm(data = pgs_2017_graph, 
                 aes(x = unittype,
                     y = weight),
-                size = 3, 
+                size = 4, 
                 alpha = 0.6,
                 pch = 16,
                 color = "gray60") +#  Now i'm going to change the labels on the x axis tick marks
@@ -364,8 +340,8 @@ ggplot() +
   labs(x = "Unit Type", 
        y = "Weight (g)")
   
-
 ```
+
 **Figure 2.** *Salamander weight (g) for Cascade (n = 448), Side-Channel (n = 164), and Pool (n = 76) salamanders in Mack Creek, Oregon. Means indicated by red dots; error bars indicate $\pm$ 1 standard deviation. Data: Aquatic Vertebrate Population Study in Mack Creek, Andrews Experimental Forest, 1987 to present.*
 
 ```{r}
@@ -399,7 +375,6 @@ tukeys_test <- TukeyHSD(pgs_aov)
 ```
 Mean salamander weight (g) differed significantly across all three groups (one-way ANOVA with post-hoc Tukey's HSD, F(`r aov_outputs[1]`, `r aov_outputs[2]`) = `r round(aov_outputs[7],2)`, *p* = `r round(aov_outputs[9],3)`). Post-hoc Tukey's HSD shows a significant difference in mean weight between side-channel and pool salamanders (p < 0.05). Mean weight of salamanders found in pools was 64% greater than that of side-channel salamanders, with an actual difference of 3.61g, where for side-channel salamanders, mean = 5.68g, n = 164, and for pool salamanders, mean = 9.29g, n = 76 (Figure 2). Pool and cascade salamanders, and side-channel and cascade salamanders did not differ significantly in mean weight (p > 0.05). For cascade salamanders, mean = 7.52g, n = 448. Mean weight of pool salamanders was 23% greater than cascade salamanders, while mean weight of cascade salamanders was 32% greater than side channel salamanders. Standard deviations for all groups are fairly high (cascade SD = 9.03, pool SD = 13.62, side-channel SD = 8.27), but can be accounted for due to several outliers in each groups, influencing the data spread (Figure 2).
 
-*Should we keep what I wrote about standard deviation or do you think we should just not talk about it? Also is what I wrote true lol*
 
 ## Summary
 
@@ -409,48 +384,14 @@ Mean salamander weight (g) differed significantly across all three groups (one-w
 
 ## References 
 
-Gregory S. V. 2016. *Aquatic Vertebrate Population Study in Mack Creek, Andrews Experimental Forest, 1987 to present.* Environmental Data Initiative. https://doi.org/10.6073/pasta/5de64af9c11579266ef20da2ff32f702. Dataset accessed 11/30/2019.
+**Gregory S. V. 2016.** *Aquatic Vertebrate Population Study in Mack Creek, Andrews Experimental Forest, 1987 to present.* Environmental Data Initiative. https://doi.org/10.6073/pasta/5de64af9c11579266ef20da2ff32f702. Dataset accessed 11/30/2019.
 
-Johnston, B. and Frid, L (2002). Clearcut logging restricts the movements of terrestrial Pacific giant salamanders (Dicamptodon tenebrosus Good). Canadian Journal of Zoology. 80(20): 2170-2177.
-
-
-
-Things I wasn't sure about:
-
-1. Results E the First part: instructions say "indicate values for the mean, and standard deviation, standard error *or* a 95% confidence interval". 
-- We have the mean, and standard deviation...I'm not sure we have standard error or a 95% confidence interval. 
--Do we need the SE or the 95% confidence interval? The way she worded it is weird.
-
-2. For Third part of Results E. 
-- Maybe has to do with the fact that the histogram and qq plot do *not* really look normal?
-
-3. For the beeswarm plot: there are a couple outliers for pool side channel that have a weight value of  like 85 and 88 so I made the y-scale to 100...
-
-4. Is the reference formatting correctly? I just copied what was in the assignment. Instructions state formatting matters
-
-5. I think (haven't read through whole thing yet) the report might be partially in present tense (does have an effect) and partially in past (did have an effect). Should probably pick one and stiock with it.
-
-6. For results E: I think the beeswarm plot represents the data the best but let me know what you think. We also probably need to hide the exploration visualizations checking for normality (qq and histogram) in the final report? I think?
-
-7. For results A I could go with either the bar graph or lollipop but would probably pick the bar graph. Either one is fine.
-
-
-Benson Response:
- 1. Yeah not sure, we can ask her about this but I think adding the mean and SD in the graph is good enough. If anything, we can add the SE values in the figure captions.
- 
- 4. It looks good, just need to italicize the article name
- 
- 5. Yeah lets go with present tense
- 
- 6. I like the jitter plot, the beeswarm looks like a sad christmas tree LOL. I think either is fine. Yeah, we should hide the qq and histogram in final report.
- 
- 7. Yeah I like the bar graph better.
- 
+**Johnston, B. and Frid, L (2002).** *Clearcut logging restricts the movements of terrestrial Pacific giant salamanders (Dicamptodon tenebrosus Good).* Canadian Journal of Zoology. 80(20): 2170-2177.
 
 
 
 
-
+Add standard error to figure 2. in results E. 
 
 
 
