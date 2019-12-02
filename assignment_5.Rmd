@@ -25,6 +25,7 @@ library(kableExtra)
 library(ggpubr)
 library(ggbeeswarm)
 library(broom)
+library(devtools)
 library(car)
 ```
 
@@ -45,6 +46,7 @@ pgs_clean <- initial_data %>%
 
 ## Introduction
 
+The Pacific giant salamander, Dicamptodon tenebrosus, are large salamanders to the Pacific Northwest of the North America. These salamanders inhabit around bodies of water such as creeks, ponds, and brooks in forests. Deforestation due to logging is a common threat to the species, so it is important to assess the effects of this disturbance (Johnston et al. 2002). Salamander data was collected at Mack Creek and provided by the Environmental Data Initiative (EDI) data portal. The only two measurements taken from the data are the counts and weights for the Pacific giant salamander. This study presents annual salamander counts at the 2 forest sections of Mack Creek, a table of 2017 salamander counts by channel classification, and other visual figures. Specifically, the observations (abundance and weight) of Pacific giant salamanders at each site are analyzed to determine if there is an association between channel classification (pool, cascades, and side-channel) and forest section (old growth and clear cut).
 
 
 
@@ -52,8 +54,7 @@ pgs_clean <- initial_data %>%
 
 ## Data & Methods
 
-
-
+Pacific giant salamanders were captured and weighed at the Mack Creek in the H. J. Andrews Experimental Forest and data from 1987 – present were provided by EDI data portal (Gregory 2016). 150 m reaches are divided into 3 contiguous 50 m reaches, which are blocked off with nets. Each 50 m sub-reach is then sampled with two-pass electrofishing. For more specific geographic sampling coordinates, see metadata (link to metadata). The abundance and weight were compared at 3 channel classifications for 2 types of forest section by chi-squared test, two sample t-test, Levene’s test, one-way Anova and Tukey’s test (α = 0.05 throughout). All analyses and figures were prepared using R software version 3.6.1.
 
 
  
@@ -402,8 +403,15 @@ Mean salamander weight (g) differed significantly across all three groups (one-w
 
 ## Summary
 
+-	Abundance of salamanders are similar in clear cut and old growth forest sections of Mack Creek from 1993 to 2017. 
+-	Forest condition did not have a significant effect on salamander location within the channel classifications
+-	Mean salamander weight in clear cut and old growth forest sections did not differ significantly in 2017
+
 ## References 
+
 Gregory S. V. 2016. *Aquatic Vertebrate Population Study in Mack Creek, Andrews Experimental Forest, 1987 to present.* Environmental Data Initiative. https://doi.org/10.6073/pasta/5de64af9c11579266ef20da2ff32f702. Dataset accessed 11/30/2019.
+
+Johnston, B. and Frid, L (2002). Clearcut logging restricts the movements of terrestrial Pacific giant salamanders (Dicamptodon tenebrosus Good). Canadian Journal of Zoology. 80(20): 2170-2177.
 
 
 
@@ -438,6 +446,11 @@ Benson Response:
  
  7. Yeah I like the bar graph better.
  
+
+
+
+
+
 
 
 
