@@ -25,7 +25,6 @@ library(kableExtra)
 library(ggpubr)
 library(ggbeeswarm)
 library(broom)
-library(devtools)
 library(car)
 ```
 
