@@ -341,7 +341,7 @@ ggplot() +
   
 ```
 
-**Figure 2.** *Salamander weight (g) for Cascade (n = 448), Side-Channel (n = 164), and Pool (n = 76) salamanders in Mack Creek, Oregon. Means indicated by red dots; error bars indicate $\pm$ 1 standard deviation. Data: Aquatic Vertebrate Population Study in Mack Creek, Andrews Experimental Forest, 1987 to present.*
+**Figure 2.** *Salamander weight (g) for Cascade (n = 448), Side-Channel (n = 164), and Pool (n = 76) salamanders in Mack Creek, Oregon. Means indicated by red dots; error bars indicate $\pm$ 1 standard deviation. Cascade standard error = 0.43, pool standard error = 1.56, and side-channel standard error = 0.65. Data: Aquatic Vertebrate Population Study in Mack Creek, Andrews Experimental Forest, 1987 to present.*
 
 ```{r}
 
@@ -389,8 +389,6 @@ Mean salamander weight (g) differed significantly across all three groups (one-w
 
 
 
-
-Add standard error to figure 2. in results E. 
 
 
 
