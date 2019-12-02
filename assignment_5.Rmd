@@ -376,26 +376,25 @@ unittype_count_2017 <- pgs_clean %>%
 pgs_aov <- aov(weight~unittype, data = pgs_2017_graph)
 pgs_aov_summary <- summary(pgs_aov)
 
-# There is a significant difference in mean weights between cascade, side-channel, and pool salamanders in Mack Creek (F(2, 684) = 4.216, p < .05). IS THERE A WAY TO INLINE REFERENCE THIS?? I just hard coded it below...couldn't find anything in the lab to inline reference.
+aov_outputs <- unlist(summary(pgs_aov))
 
-```
-One-way ANOVA shows that there is a significant difference in mean weights between cascade, side-channel, and pool salamanders in Mack Creek (F(2, 684) = 4.216, *p* < 0.05). 
-```{r}
+# There is a significant difference in mean weights between cascade, side-channel, and pool salamanders in Mack Creek (F(2, 684) = 4.216, p < .05). 
 
 # They are not all the same weight, so which ones are different?
 
 tukeys_test <- TukeyHSD(pgs_aov)
 
 # p adj shows the hypothesis test. Only the p value for side channel compared to pool is < 0.05 so those are the two that are significantly different. 
+
 ```
-A post-hoc Tukey's HSD shows a significant difference in mean weight between side-channel and pool salamanders (p < 0.05). Mean weight of salamanders found in pools was 64% greater than that of side-channel salamanders, with an actual difference of 3.61g, where for side-channel salamanders, mean = 5.68g, n = 164, and for pool salamanders, mean = 9.29g, n = 76 (Figure 2). Pool and cascade salamanders, and side-channel and cascade salamanders did not differ significantly in mean weight (p > 0.05). For cascade salamanders, mean = 7.52g, n = 448. Mean weight of pool salamanders was 23% greater than cascade salamanders, while mean weight of cascade salamanders was 32% greater than side channel salamanders. Standard deviations for all groups are fairly high (cascade SD = 9.03, pool SD = 13.62, side-channel SD = 8.27), but can be accounted for due to several outliers in each groups, influencing the data spread (Figure 2).
+Mean salamander weight (g) differed significantly across all three groups (one-way ANOVA with post-hoc Tukey's HSD, F(`r aov_outputs[1]`, `r aov_outputs[2]`) = `r round(aov_outputs[7],2)`, *p* = `r round(aov_outputs[9],3)`). Post-hoc Tukey's HSD shows a significant difference in mean weight between side-channel and pool salamanders (p < 0.05). Mean weight of salamanders found in pools was 64% greater than that of side-channel salamanders, with an actual difference of 3.61g, where for side-channel salamanders, mean = 5.68g, n = 164, and for pool salamanders, mean = 9.29g, n = 76 (Figure 2). Pool and cascade salamanders, and side-channel and cascade salamanders did not differ significantly in mean weight (p > 0.05). For cascade salamanders, mean = 7.52g, n = 448. Mean weight of pool salamanders was 23% greater than cascade salamanders, while mean weight of cascade salamanders was 32% greater than side channel salamanders. Standard deviations for all groups are fairly high (cascade SD = 9.03, pool SD = 13.62, side-channel SD = 8.27), but can be accounted for due to several outliers in each groups, influencing the data spread (Figure 2).
 
 *Should we keep what I wrote about standard deviation or do you think we should just not talk about it? Also is what I wrote true lol*
 
 ## Summary
 
 ## References 
-Gregory S. V. 2016. Aquatic Vertebrate Population Study in Mack Creek, Andrews Experimental Forest, 1987 to present. Environmental Data Initiative. https://doi.org/10.6073/pasta/5de64af9c11579266ef20da2ff32f702. Dataset accessed 11/30/2019.
+Gregory S. V. 2016. *Aquatic Vertebrate Population Study in Mack Creek, Andrews Experimental Forest, 1987 to present.* Environmental Data Initiative. https://doi.org/10.6073/pasta/5de64af9c11579266ef20da2ff32f702. Dataset accessed 11/30/2019.
 
 
 
