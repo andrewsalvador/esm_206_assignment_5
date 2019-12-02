@@ -46,14 +46,14 @@ The Pacific giant salamander, *Dicamptodon tenebrosus*, are large salamanders na
 
 
 ![](PacificGiantSalamanderODFW.jpg)
-**Figure 1.** *Pacific giant salamander. Credit: [Oregon Wild](https://oregonwild.org/wildlife/pacific-giant-salamander)*.
+***Figure 1.*** *Pacific giant salamander. Credit: [Oregon Wild](https://oregonwild.org/wildlife/pacific-giant-salamander)*.
 
 ## Data & Methods
 
 Pacific giant salamanders were captured and weighed at the Mack Creek in the H. J. Andrews Experimental Forest and data from 1987 – present were provided by EDI Data Portal (Gregory 2016). 150 m reaches are divided into 3 contiguous 50 m reaches, which are blocked off with nets. Each 50 m sub-reach is then sampled with two-pass electrofishing. For more specific geographic sampling coordinates, see metadata [EDI Data Portal](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-and&identifier=4027&revision=12). The abundance and weight were compared at 3 channel classifications for 2 types of forest section by chi-squared test, two sample t-test, Levene’s test, one-way Anova and Tukey’s test (α = 0.05 throughout). All analyses and figures were prepared using R software version 3.6.1.
 
 ![](map_study.png)
-**Figure 2** *Map of Mack Creek area of study. Credit: [EDI Data Portal](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-and&identifier=4027&revision=12).*
+***Figure 2.*** *Map of Mack Creek area of study. Credit: [EDI Data Portal](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-and&identifier=4027&revision=12).*
 
 ## Results {.tabset .tabset-fade}
 
@@ -333,7 +333,7 @@ ggplot() +
   
 ```
 
-**Figure 4.** *Salamander weight (g) for cascade (n = 448), side-channel (n = 164), and pool (n = 76) salamanders in Mack Creek, Oregon. Means indicated by red dots; error bars indicate $\pm$ 1 standard deviation. Cascade standard error = 0.43, pool standard error = 1.56, and side-channel standard error = 0.65. Data: Aquatic Vertebrate Population Study in Mack Creek, Andrews Experimental Forest, 1987 to present.*
+***Figure 4.*** *Salamander weight (g) for cascade (n = 448), side-channel (n = 164), and pool (n = 76) salamanders in Mack Creek, Oregon. Means indicated by red dots; error bars indicate $\pm$ 1 standard deviation. Cascade standard error = 0.43, pool standard error = 1.56, and side-channel standard error = 0.65. Data: Aquatic Vertebrate Population Study in Mack Creek, Andrews Experimental Forest, 1987 to present.*
 
 ```{r}
 
