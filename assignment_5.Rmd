@@ -49,7 +49,7 @@ pgs_clean <- initial_data %>%
 The Pacific giant salamander, Dicamptodon tenebrosus, are large salamanders to the Pacific Northwest of the North America. These salamanders inhabit around bodies of water such as creeks, ponds, and brooks in forests. Deforestation due to logging is a common threat to the species, so it is important to assess the effects of this disturbance (Johnston et al. 2002). Salamander data was collected at Mack Creek and provided by the Environmental Data Initiative (EDI) data portal. The only two measurements taken from the data are the counts and weights for the Pacific giant salamander. This study presents annual salamander counts at the 2 forest sections of Mack Creek, a table of 2017 salamander counts by channel classification, and other visual figures. Specifically, the observations (abundance and weight) of Pacific giant salamanders at each site are analyzed to determine if there is an association between channel classification (pool, cascades, and side-channel) and forest section (old growth and clear cut).
 
 
-
+![](PacificGiantSalamanderODFW.jpg)
 
 
 ## Data & Methods
@@ -62,7 +62,7 @@ Pacific giant salamanders were captured and weighed at the Mack Creek in the H. 
 
 ### Results A
 
-#### Pacific giant salamander abundance
+#### **Pacific giant salamander abundance**
 Salamander count in clear cut (CC) and old growth (OG) sections of Mack Creek from 1993 to 2017. Trends are fairly similar in both sections, with salamander abundance increasing sharply in 2002, decreasing rapidly around the year 2012, and then increasing again beginning in 2015. For all but two years from 1993 to 2014 salamander count in the old growth section was greater than in the clear cut section, with the two exceptions being 1994 and 2012, where salamander count in the clear cut section slightly exceeded salamander observations in the old growth section. Salamander count in the clear cut section was greater than in the old growth section for all three years from 2015 to 2017. 
 ```{r}
 
@@ -211,7 +211,7 @@ og_cc_ttest <- t.test(pgs_og, pgs_cc)
 # P-value of 0.09599, retain null hypothesis
 # There is no significant difference between in mean weights for Pacific giant salamanders observed in the two forest sections in 2017. 
 ```
-#### Comparing Pacific giant salamander weight in 2017
+#### **Comparing Pacific giant salamander weight in 2017**
 Mean salamander weight in clear cut and old growth sections did not differ significantly in 2017 (t(`r round(og_cc_ttest$parameter, 2)`) = `r round(og_cc_ttest$statistic, 2)`, *p* > 0.05). Mean salamander weight in the clear cut section was 18.11% greater than in the old growth section, with an actual difference of 1.19 grams. For salamanders observed in the clear cut section mean = 7.78g, n = 368, while for salamanders observed in the old growth section, mean = 6.58g, n = 320. 
 
 
