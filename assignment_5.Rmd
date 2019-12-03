@@ -42,18 +42,20 @@ pgs_clean <- initial_data %>%
 
 ## Introduction
 
-The Pacific giant salamander, *Dicamptodon tenebrosus*, are large salamanders native to the Pacific Northwest of the North America. These salamanders are found around bodies of water such as creeks, ponds, and brooks in forests. Deforestation due to logging is a common threat to the species, so it is important to assess the effects of this disturbance (Johnston et al. 2002). Salamander data was collected at Mack Creek and provided by the Environmental Data Initiative (EDI). The only two measurements used for this report are the counts and weights for the Pacific giant salamander. This study presents annual salamander counts at two different forest sections of Mack Creek (clear cut and old growth), a table of 2017 salamander counts by channel classification, and other visual figures. Specifically, the observations (abundance and weight) of Pacific giant salamanders at each site are analyzed to determine if there is an association between channel classification (pool, cascades, and side-channel) and forest section (old growth and clear cut).
+The Pacific giant salamander, *Dicamptodon tenebrosus*, are large salamanders native to the Pacific Northwest of North America. These salamanders are found around bodies of water such as creeks, ponds, and brooks in forests. Deforestation due to logging is a common threat to the species, so it is important to assess the effects of this disturbance (Johnston et al. 2002). Salamander data was collected at Mack Creek and provided by the Environmental Data Initiative (EDI). The only two measurements used for this report are the counts and weights for the Pacific giant salamander. This study presents annual salamander counts at two different forest sections of Mack Creek (clear cut and old growth), a table of 2017 salamander counts by channel classification, and other visual figures. Specifically, the observations (abundance and weight) of Pacific giant salamanders at each site are analyzed to determine if there is an association between channel classification (pool, cascades, and side-channel) and forest section (old growth and clear cut).
 
 
 ![](PacificGiantSalamanderODFW.jpg)
-**Figure 1.** *Pacific giant salamander. Credit: [Oregon Wild](https://oregonwild.org/wildlife/pacific-giant-salamander)*.
+
+***Figure 1.*** *Pacific giant salamander. Credit: [Oregon Wild](https://oregonwild.org/wildlife/pacific-giant-salamander)*.
 
 ## Data & Methods
 
-Pacific giant salamanders were captured and weighed at the Mack Creek in the H. J. Andrews Experimental Forest and data from 1987 – present were provided by EDI Data Portal (Gregory 2016). 150 m reaches are divided into 3 contiguous 50 m reaches, which are blocked off with nets. Each 50 m sub-reach is then sampled with two-pass electrofishing. For more specific geographic sampling coordinates, see metadata [EDI Data Portal](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-and&identifier=4027&revision=12). The abundance and weight were compared at 3 channel classifications for 2 types of forest section by chi-squared test, two sample t-test, Levene’s test, one-way Anova and Tukey’s test (α = 0.05 throughout). All analyses and figures were prepared using R software version 3.6.1.
+Pacific giant salamanders were captured and weighed at Mack Creek in the H. J. Andrews Experimental Forest and data from 1987 – present were provided by EDI Data Portal (Gregory 2016). 150 m reaches are divided into 3 contiguous 50 m reaches, which are blocked off with nets. Each 50 m sub-reach is then sampled with two-pass electrofishing. For more specific geographic sampling coordinates, see metadata [EDI Data Portal](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-and&identifier=4027&revision=12). The abundance and weight were compared at 3 channel classifications for 2 types of forest section by chi-squared test, two sample t-test, Levene’s test, one-way ANOVA and Tukey’s test (α = 0.05 throughout). All analyses and figures were prepared using R software version 3.6.1.
 
 ![](map_study.png)
-**Figure 2** *Map of Mack Creek area of study. Credit: [EDI Data Portal](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-and&identifier=4027&revision=12).*
+
+***Figure 2.*** *Map of Mack Creek area of study. Credit: [EDI Data Portal](https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-and&identifier=4027&revision=12).*
 
 ## Results {.tabset .tabset-fade}
 
@@ -115,6 +117,7 @@ ggplot(pgs_count, aes(x = year,
 
 
 ```
+
 ***Figure 3.*** *Sample salamander counts from years 1993 to 2017 for clear cut (CC) and old growth (OG) sections of Mack Creek. Clear cut section shown in red while old growth section shown in blue. Data: Aquatic Vertebrate Population Study in Mack Creek, Andrews Experimental Forest, 1987 to present.*
 
 
@@ -169,7 +172,7 @@ contingency_table_c <- pgs_class_table %>%
 channelclass_chi <- chisq.test(contingency_table_c)
 
 ```
-#### Forest condition impact on Pacific giant salamander location in 2017
+#### **Forest condition impact on Pacific giant salamander location in 2017**
 Forest condition (clear cut or old growth) did not have a significant effect on salamander location within the channel (cascade, side-channel, pool) (($\chi$^2^(`r channelclass_chi$parameter`)) = `r channelclass_chi$statistic`), *p* > 0.05). For salamander observations in the clear cut section n = 368, for observations in the old growth section n = 320. The greatest proportion of salamanders observed was in the cascades (67.12% clear cut, 62.81% old growth), while the smallest proportion of salamanders observed was in the pools (8.42% clear cut, 14.06% old growth). Actual counts for clear cut areas were 247 in cascades, 31 in pools, and 90 in side-channels, and for old growth forest, 201 in cascades, 45 in pools, and 74 in side-channels (Table 1).
 
 
@@ -333,7 +336,7 @@ ggplot() +
   
 ```
 
-**Figure 4.** *Salamander weight (g) for cascade (n = 448), side-channel (n = 164), and pool (n = 76) salamanders in Mack Creek, Oregon. Means indicated by red dots; error bars indicate $\pm$ 1 standard deviation. Cascade standard error = 0.43, pool standard error = 1.56, and side-channel standard error = 0.65. Data: Aquatic Vertebrate Population Study in Mack Creek, Andrews Experimental Forest, 1987 to present.*
+***Figure 4.*** *Salamander weight (g) for cascade (n = 448), pool (n = 76), and side-channel (n = 164) in Mack Creek, Oregon. Means indicated by red dots; error bars indicate $\pm$ 1 standard deviation. Cascade standard error = 0.43, pool standard error = 1.56, and side-channel standard error = 0.65. Data: Aquatic Vertebrate Population Study in Mack Creek, Andrews Experimental Forest, 1987 to present.*
 
 ```{r}
 
@@ -364,18 +367,19 @@ tukeys_test <- TukeyHSD(pgs_aov)
 # p adj shows the hypothesis test. Only the p value for side channel compared to pool is < 0.05 so those are the two that are significantly different. 
 
 ```
-Mean salamander weight (g) differed significantly across all three groups (one-way ANOVA with post-hoc Tukey's HSD, F(`r aov_outputs[1]`, `r aov_outputs[2]`) = `r round(aov_outputs[7],2)`, *p* = `r round(aov_outputs[9],3)`). Post-hoc Tukey's HSD shows a significant difference in mean weight between side-channel and pool salamanders (p < 0.05). Mean weight of salamanders found in pools was 64% greater than that of side-channel salamanders, with an actual difference of 3.61g, where for side-channel salamanders, mean = 5.68g, n = 164, and for pool salamanders, mean = 9.29g, n = 76 (Figure 2). Pool and cascade salamanders, and side-channel and cascade salamanders did not differ significantly in mean weight (p > 0.05). For cascade salamanders, mean = 7.52g, n = 448. Mean weight of pool salamanders was 23% greater than cascade salamanders, while mean weight of cascade salamanders was 32% greater than side channel salamanders. Standard deviations for all groups are fairly high (cascade SD = 9.03, pool SD = 13.62, side-channel SD = 8.27), but can be accounted for due to several outliers in each groups, influencing the data spread (Figure 2).
+Mean salamander weight (g) differed significantly across all three groups (one-way ANOVA with post-hoc Tukey's HSD, F(`r aov_outputs[1]`, `r aov_outputs[2]`) = `r round(aov_outputs[7],2)`, *p* = `r round(aov_outputs[9],3)`). Post-hoc Tukey's HSD shows a significant difference in mean weight between side-channel and pool salamanders (p < 0.05). Mean weight of salamanders found in pools was 64% greater than that of side-channel salamanders, with an actual difference of 3.61g, where for side-channel salamanders, mean = 5.68g, n = 164, and for pool salamanders, mean = 9.29g, n = 76 (Figure 2). Pool and cascade salamanders, and side-channel and cascade salamanders did not differ significantly in mean weight (p > 0.05). For cascade salamanders, mean = 7.52g, n = 448. Mean weight of pool salamanders was 23% greater than cascade salamanders, while mean weight of cascade salamanders was 32% greater than side channel salamanders. Standard deviations for all groups are fairly high (cascade SD = 9.03, pool SD = 13.62, side-channel SD = 8.27), possibly due to several outliers in each groups, influencing the data spread (Figure 2).
 
 
 ## Summary
 
--	Abundance of salamanders are similar in clear cut and old growth forest sections of Mack Creek from 1993 to 2017. 
--	Forest condition did not have a significant effect on salamander location within the channel classifications
--	Mean salamander weight in clear cut and old growth forest sections did not differ significantly in 2017
+-	Abundance of salamanders are similar in clear cut and old growth forest sections of Mack Creek from 1993 to 2017 (figure 3). 
+-	Forest condition did not have a significant effect on salamander location within the channel classifications.
+-	Mean salamander weight in clear cut and old growth forest sections did not differ significantly in 2017.
+- Salamander weights significantly differ only between side-channel and pool channel classifications (figure 4).
 
 ## References 
 
-**Gregory S. V. 2016.** *Aquatic Vertebrate Population Study in Mack Creek, Andrews Experimental Forest, 1987 to present.* Environmental Data Initiative. https://doi.org/10.6073/pasta/5de64af9c11579266ef20da2ff32f702. Dataset accessed 11/30/2019.
+**Gregory, S. V. (2016).** *Aquatic Vertebrate Population Study in Mack Creek, Andrews Experimental Forest, 1987 to present.* Environmental Data Initiative. https://doi.org/10.6073/pasta/5de64af9c11579266ef20da2ff32f702. Dataset accessed 11/30/2019.
 
 **Johnston, B. and Frid, L (2002).** *Clearcut logging restricts the movements of terrestrial Pacific giant salamanders (Dicamptodon tenebrosus Good).* Canadian Journal of Zoology. 80(20): 2170-2177.
 
