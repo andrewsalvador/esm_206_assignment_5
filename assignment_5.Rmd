@@ -1,7 +1,7 @@
 ---
 title: "ESM 206, Assignment 5"
 author: "Andrew Salvador & Benson Truong"
-date: "11/29/2019"
+date: "12/2/2019"
 output: html_document
 ---
 
@@ -173,7 +173,7 @@ channelclass_chi <- chisq.test(contingency_table_c)
 
 ```
 #### **Forest condition impact on Pacific giant salamander location in 2017**
-Forest condition (clear cut or old growth) did not have a significant effect on salamander location within the channel (cascade, side-channel, pool) (($\chi$^2^(`r channelclass_chi$parameter`)) = `r channelclass_chi$statistic`), *p* > 0.05). For salamander observations in the clear cut section n = 368, for observations in the old growth section n = 320. The greatest proportion of salamanders observed was in the cascades (67.12% clear cut, 62.81% old growth), while the smallest proportion of salamanders observed was in the pools (8.42% clear cut, 14.06% old growth). Actual counts for clear cut areas were 247 in cascades, 31 in pools, and 90 in side-channels, and for old growth forest, 201 in cascades, 45 in pools, and 74 in side-channels (Table 1).
+From Chi-squared test, forest condition (clear cut or old growth) did not have a significant effect on salamander location within the channel (cascade, side-channel, pool) (($\chi$^2^(`r channelclass_chi$parameter`)) = `r channelclass_chi$statistic`), *p* > 0.05). For salamander observations in the clear cut section n = 368, for observations in the old growth section n = 320. The greatest proportion of salamanders observed was in the cascades (67.12% clear cut, 62.81% old growth), while the smallest proportion of salamanders observed was in the pools (8.42% clear cut, 14.06% old growth). Actual counts for clear cut areas were 247 in cascades, 31 in pools, and 90 in side-channels, and for old growth forest, 201 in cascades, 45 in pools, and 74 in side-channels (Table 1).
 
 
 
@@ -239,8 +239,8 @@ ggplot(pgs_2017_graph, aes(sample = weight)) +
   geom_qq() +
   facet_wrap(~unittype)
 
-# All sample sizes > 30 so that is good for parametric test except....
-# Both the histogram and the qq plot do not look really that normal....maybe that has to do with the third part of results 3? 
+# All sample sizes > 30 so that is good for parametric test.
+# Both the histogram and the qq plot do not look really that normal.
 
 
 ```
@@ -259,9 +259,6 @@ levene_test <- leveneTest(weight ~ unittype, data = pgs_2017_graph)
 
 ```{r, include = FALSE}
 
-# Graph weights across unittypes 
-# Idk which graph looks the best. maybe jitter or histogram? 
-
 # Summary statistic table to make error bars for graph
 pgs_summary <- pgs_2017_graph %>% 
   group_by(unittype) %>% 
@@ -273,28 +270,23 @@ pgs_summary <- pgs_2017_graph %>%
     var_weight = var(weight, na.rm = TRUE)
   )
 
+```               
 
-# Histogram
-ggplot(data = pgs_2017_graph, aes(x = weight))+
-  geom_histogram(aes(fill=unittype), na.rm = TRUE)+
-  facet_wrap(~unittype)
+```{r}
+# Graph of salamander weights by channel classification
 
-# Violin
-ggplot(data = pgs_2017_graph, aes(x = unittype, y = weight))+
-  geom_violin(aes(color=unittype), na.rm = TRUE)+
-  facet_wrap(~unittype)
-
-# Jitter
+# Beeswarm
 ggplot() +
-  geom_jitter(data = pgs_2017_graph, 
+  geom_beeswarm(data = pgs_2017_graph, 
                 aes(x = unittype,
                     y = weight),
-                size = 3, 
+                size = 4, 
                 alpha = 0.6,
-                pch = 1,
-                color = "gray50") +
+                pch = 16,
+                color = "gray60") +
   scale_x_discrete(labels = c( "Cascade", "Pool", "Side-Channel")) +
-  geom_point(data = pgs_summary,
+  scale_y_continuous(limits = c(-5,100), expand = c(0,0)) +
+  geom_point(data = pgs_summary, 
              aes(x = unittype,
                  y = mean_weight),
              color = "red") + 
@@ -304,34 +296,7 @@ ggplot() +
                     ymax = mean_weight + sd_weight),
                 width = 0.1) +
   theme_light() +
-  labs(x = "Unit Type",
-       y = "Weight (g)")
-
-```               
-
-```{r}
-# Beeswarm
-ggplot() +
-  geom_beeswarm(data = pgs_2017_graph, 
-                aes(x = unittype,
-                    y = weight),
-                size = 4, 
-                alpha = 0.6,
-                pch = 16,
-                color = "gray60") +#  Now i'm going to change the labels on the x axis tick marks
-  scale_x_discrete(labels = c( "Cascade", "Pool", "Side-Channel")) +# now i'm going to indicate the mean
-  scale_y_continuous(limits = c(-5,100), expand = c(0,0)) +
-  geom_point(data = pgs_summary, 
-             aes(x = unittype,
-                 y = mean_weight),
-             color = "red") + # Now plotting data spread (errorbar), 1 standard deviation up and down from mean (standard error and 95% coonfidence interval are also very common)
-  geom_errorbar(data = pgs_summary,
-                aes(x = unittype,
-                    ymin = mean_weight - sd_weight,
-                    ymax = mean_weight + sd_weight),
-                width = 0.1) +
-  theme_light() +
-  labs(x = "Unit Type", 
+  labs(x = "Channel Classification", 
        y = "Weight (g)")
   
 ```
@@ -349,7 +314,7 @@ unittype_count_2017 <- pgs_clean %>%
 
 ```
 
-#### One-way ANOVA and Tukey's test
+#### **One-way ANOVA and Tukey's test**
 ```{r}
 
 # ANOVA Test
@@ -369,13 +334,15 @@ tukeys_test <- TukeyHSD(pgs_aov)
 ```
 Mean salamander weight (g) differed significantly across all three groups (one-way ANOVA with post-hoc Tukey's HSD, F(`r aov_outputs[1]`, `r aov_outputs[2]`) = `r round(aov_outputs[7],2)`, *p* = `r round(aov_outputs[9],3)`). Post-hoc Tukey's HSD shows a significant difference in mean weight between side-channel and pool salamanders (p < 0.05). Mean weight of salamanders found in pools was 64% greater than that of side-channel salamanders, with an actual difference of 3.61g, where for side-channel salamanders, mean = 5.68g, n = 164, and for pool salamanders, mean = 9.29g, n = 76 (Figure 2). Pool and cascade salamanders, and side-channel and cascade salamanders did not differ significantly in mean weight (p > 0.05). For cascade salamanders, mean = 7.52g, n = 448. Mean weight of pool salamanders was 23% greater than cascade salamanders, while mean weight of cascade salamanders was 32% greater than side channel salamanders. Standard deviations for all groups are fairly high (cascade SD = 9.03, pool SD = 13.62, side-channel SD = 8.27), possibly due to several outliers in each groups, influencing the data spread (Figure 2).
 
+One concern about comparing means across these groups is that when using a histogram and qq-plot to check for normality, the distribution of the means does not look perfectly normal. Another possible analysis to consider doing would be a Mann-Whitney U test for an unpaired rank based comparison. 
+
 
 ## Summary
 
--	Abundance of salamanders are similar in clear cut and old growth forest sections of Mack Creek from 1993 to 2017 (figure 3). 
+-	Abundance of salamanders are similar in clear cut and old growth forest sections of Mack Creek from 1993 to 2017 (Figure 3). 
 -	Forest condition did not have a significant effect on salamander location within the channel classifications.
 -	Mean salamander weight in clear cut and old growth forest sections did not differ significantly in 2017.
-- Salamander weights significantly differ only between side-channel and pool channel classifications (figure 4).
+- Salamander weights significantly differ only between side-channel and pool channel classifications (Figure 4).
 
 ## References 
 
